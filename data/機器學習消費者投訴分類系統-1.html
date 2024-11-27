@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 機器學習：消費者投訴分類系統 | 呂珣瑄 數據分析作品集</title>
+  <meta name="description" content="Chapter 4 機器學習：消費者投訴分類系統 | 呂珣瑄 數據分析作品集" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 機器學習：消費者投訴分類系統 | 呂珣瑄 數據分析作品集" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 4 機器學習：消費者投訴分類系統 | 呂珣瑄 數據分析作品集" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 機器學習：消費者投訴分類系統 | 呂珣瑄 數據分析作品集" />
+  
+  <meta name="twitter:description" content="Chapter 4 機器學習：消費者投訴分類系統 | 呂珣瑄 數據分析作品集" />
+  
+
+<meta name="author" content="呂珣瑄" />
+
+
+<meta name="date" content="2024-11-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="文字探勘半導體永續報告書分析-1.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#資料分析超商購物車消費者資料分析"><i class="fa fa-check"></i><b>1.1</b> 資料分析：超商購物車消費者資料分析</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#文字探勘半導體永續報告書分析"><i class="fa fa-check"></i><b>1.2</b> 文字探勘：半導體永續報告書分析</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#機器學習消費者投訴分類系統"><i class="fa fa-check"></i><b>1.3</b> 機器學習：消費者投訴分類系統</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html"><i class="fa fa-check"></i><b>2</b> 資料分析：超商購物車消費者資料分析</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#資料敘述"><i class="fa fa-check"></i><b>2.1</b> 資料敘述</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#故事背景"><i class="fa fa-check"></i><b>2.1.1</b> 故事背景</a></li>
+<li class="chapter" data-level="2.1.2" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#資料概要"><i class="fa fa-check"></i><b>2.1.2</b> 資料概要</a></li>
+<li class="chapter" data-level="2.1.3" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#資料前處理與轉換"><i class="fa fa-check"></i><b>2.1.3</b> 資料前處理與轉換</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#探索性資料分析"><i class="fa fa-check"></i><b>2.2</b> 探索性資料分析</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#銷售趨勢分析"><i class="fa fa-check"></i><b>2.2.1</b> 銷售趨勢分析</a></li>
+<li class="chapter" data-level="2.2.2" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#顧客行為分析"><i class="fa fa-check"></i><b>2.2.2</b> 顧客行為分析</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#視覺化消費者活動接受情況"><i class="fa fa-check"></i><b>2.3</b> 視覺化消費者活動接受情況</a></li>
+<li class="chapter" data-level="2.4" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#二元變數之probitlogit-glm"><i class="fa fa-check"></i><b>2.4</b> 二元變數之Probit/Logit GLM</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#model1-考量消費金額的logit-glm"><i class="fa fa-check"></i><b>2.4.1</b> Model1 考量「消費金額」的Logit GLM</a></li>
+<li class="chapter" data-level="2.4.2" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#model2-考量消費者型態的logit-glm"><i class="fa fa-check"></i><b>2.4.2</b> Model2 考量「消費者型態」的Logit GLM</a></li>
+<li class="chapter" data-level="2.4.3" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#model3-考量消費者前期活動參與的logit-glm"><i class="fa fa-check"></i><b>2.4.3</b> Model3 考量「消費者前期活動參與」的Logit GLM</a></li>
+<li class="chapter" data-level="2.4.4" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#model-4-考量所有變數的logit-glm"><i class="fa fa-check"></i><b>2.4.4</b> Model 4 考量「所有變數」的Logit GLM</a></li>
+<li class="chapter" data-level="2.4.5" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#每個模型的roc曲線"><i class="fa fa-check"></i><b>2.4.5</b> 每個模型的ROC曲線</a></li>
+<li class="chapter" data-level="2.4.6" data-path="資料分析超商購物車消費者資料分析-1.html"><a href="資料分析超商購物車消費者資料分析-1.html#總結影響因素"><i class="fa fa-check"></i><b>2.4.6</b> 總結影響因素</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html"><i class="fa fa-check"></i><b>3</b> 文字探勘：半導體永續報告書分析</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#年台灣ic產業主要廠商排名"><i class="fa fa-check"></i><b>3.1</b> 2022年台灣IC產業主要廠商排名</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#xpath-爬取網站資料"><i class="fa fa-check"></i><b>3.1.1</b> Xpath 爬取網站資料</a></li>
+<li class="chapter" data-level="3.1.2" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#網站文字清理"><i class="fa fa-check"></i><b>3.1.2</b> 網站文字清理</a></li>
+<li class="chapter" data-level="3.1.3" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#年台灣ic產業主要廠商排名-1"><i class="fa fa-check"></i><b>3.1.3</b> 2022年台灣IC產業主要廠商排名</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#半導體永續報告書導入與清理"><i class="fa fa-check"></i><b>3.2</b> 半導體永續報告書導入與清理</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#台積電永續報告書"><i class="fa fa-check"></i><b>3.2.1</b> 台積電永續報告書</a></li>
+<li class="chapter" data-level="3.2.2" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#聯發科永續報告書"><i class="fa fa-check"></i><b>3.2.2</b> 聯發科永續報告書</a></li>
+<li class="chapter" data-level="3.2.3" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#日月光控股永續報告書"><i class="fa fa-check"></i><b>3.2.3</b> 日月光控股永續報告書</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#計算-tf-idf"><i class="fa fa-check"></i><b>3.3</b> 計算 tf-idf</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#將資料合併"><i class="fa fa-check"></i><b>3.3.1</b> 將資料合併</a></li>
+<li class="chapter" data-level="3.3.2" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#設定停止詞和自訂義辭典"><i class="fa fa-check"></i><b>3.3.2</b> 設定停止詞和自訂義辭典</a></li>
+<li class="chapter" data-level="3.3.3" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#斷詞"><i class="fa fa-check"></i><b>3.3.3</b> 斷詞</a></li>
+<li class="chapter" data-level="3.3.4" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#計算-tf-idf-1"><i class="fa fa-check"></i><b>3.3.4</b> 計算 tf-idf</a></li>
+<li class="chapter" data-level="3.3.5" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#繪製長條圖"><i class="fa fa-check"></i><b>3.3.5</b> 繪製長條圖</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#正面情緒分析"><i class="fa fa-check"></i><b>3.4</b> 正面情緒分析</a></li>
+<li class="chapter" data-level="3.5" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#分析永續報告書用字相似度"><i class="fa fa-check"></i><b>3.5</b> 分析永續報告書用字相似度</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#計算tf-idf每一個字分別出現在這三家永續報告書的次數"><i class="fa fa-check"></i><b>3.5.1</b> 計算tf-idf(每一個字分別出現在這三家永續報告書的次數)</a></li>
+<li class="chapter" data-level="3.5.2" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#查看相關係數"><i class="fa fa-check"></i><b>3.5.2</b> 查看相關係數</a></li>
+<li class="chapter" data-level="3.5.3" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#分析詞頻差異"><i class="fa fa-check"></i><b>3.5.3</b> 分析詞頻差異</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#lda主題模型"><i class="fa fa-check"></i><b>3.6</b> LDA主題模型</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#前置處理"><i class="fa fa-check"></i><b>3.6.1</b> 前置處理</a></li>
+<li class="chapter" data-level="3.6.2" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#lda主題建模"><i class="fa fa-check"></i><b>3.6.2</b> LDA主題建模</a></li>
+<li class="chapter" data-level="3.6.3" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#為主題命名"><i class="fa fa-check"></i><b>3.6.3</b> 為主題命名</a></li>
+<li class="chapter" data-level="3.6.4" data-path="文字探勘半導體永續報告書分析-1.html"><a href="文字探勘半導體永續報告書分析-1.html#主題與公司對應關係"><i class="fa fa-check"></i><b>3.6.4</b> 主題與公司對應關係</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html"><i class="fa fa-check"></i><b>4</b> 機器學習：消費者投訴分類系統</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#step-1.-data-preparation-for-machine-learning"><i class="fa fa-check"></i><b>4.1</b> Step 1. Data preparation for machine learning</a></li>
+<li class="chapter" data-level="4.2" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#step-2.-specifying-step-elements-for-recipe"><i class="fa fa-check"></i><b>4.2</b> Step 2. Specifying step elements for Recipe</a></li>
+<li class="chapter" data-level="4.3" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#step-3.-build-a-workflow-for-machine-learning"><i class="fa fa-check"></i><b>4.3</b> Step 3. Build a workflow for Machine Learning</a></li>
+<li class="chapter" data-level="4.4" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#step-4.-k-fold-cross-validation"><i class="fa fa-check"></i><b>4.4</b> Step 4. K-Fold Cross-Validation</a></li>
+<li class="chapter" data-level="4.5" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#step-5.-models-selection"><i class="fa fa-check"></i><b>4.5</b> Step 5. Models Selection</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#model-1.-naive-bayes"><i class="fa fa-check"></i><b>4.5.1</b> Model 1. Naive Bayes</a></li>
+<li class="chapter" data-level="4.5.2" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#model-2.-the-null-model-baseline"><i class="fa fa-check"></i><b>4.5.2</b> Model 2. The null model (baseline)</a></li>
+<li class="chapter" data-level="4.5.3" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#model-3.-lasso"><i class="fa fa-check"></i><b>4.5.3</b> Model 3. LASSO</a></li>
+<li class="chapter" data-level="4.5.4" data-path="機器學習消費者投訴分類系統-1.html"><a href="機器學習消費者投訴分類系統-1.html#choosing-the-best-model-out-of-tuned-lassos"><i class="fa fa-check"></i><b>4.5.4</b> Choosing the Best Model out-of tuned LASSOs</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">呂珣瑄 數據分析作品集</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="機器學習消費者投訴分類系統-1" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 機器學習：消費者投訴分類系統<a href="機器學習消費者投訴分類系統-1.html#機器學習消費者投訴分類系統-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ol style="list-style-type: decimal">
+<li><p>核心目標：建立一個自動化的文本分類系統，以機器學習的方式，分析消費者的投訴之文字描述，預測其是否屬於「信用相關 (credit) 」或「其他產品 (other)」類別。</p></li>
+<li><p>子目標：</p></li>
+</ol>
+<ul>
+<li><p>開發一個準確的機器學習模型，結合數據預處理和模型訓練，實現分類任務的自動化。</p></li>
+<li><p>使用斷詞、正則法、TF-IDF提取文本特徵。探索分類模型（如朴素貝葉斯、LASSO），比較模型的性能，並挑選最佳模型進行運用。</p></li>
+<li><p>評估模型性能，包括準確率、ROC AUC、混淆矩陣等，確保模型能穩定應用。</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>最終目標：為企業提供自動化的文本分類工具，節省人工處理投訴的時間和成本，提升客戶服務的效率。</li>
+</ol>
+<div id="step-1.-data-preparation-for-machine-learning" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Step 1. Data preparation for machine learning<a href="機器學習消費者投訴分類系統-1.html#step-1.-data-preparation-for-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>導入文本資料，共有18個欄位，117214筆資料。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="機器學習消費者投訴分類系統-1.html#cb1-1" tabindex="-1"></a>complaints <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;/Users/sharon728/Downloads/complaints.csv.gz&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 117214 Columns: 18
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (15): product, sub_product, issue, sub_issue, consumer_complaint_narrat...
+## dbl   (1): complaint_id
+## date  (2): date_received, date_sent_to_company
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="機器學習消費者投訴分類系統-1.html#cb3-1" tabindex="-1"></a><span class="fu">glimpse</span>(complaints)</span></code></pre></div>
+<pre><code>## Rows: 117,214
+## Columns: 18
+## $ date_received                &lt;date&gt; 2019-09-24, 2019-10-25, 2019-11-08, 2019…
+## $ product                      &lt;chr&gt; &quot;Debt collection&quot;, &quot;Credit reporting, cre…
+## $ sub_product                  &lt;chr&gt; &quot;I do not know&quot;, &quot;Credit reporting&quot;, &quot;I d…
+## $ issue                        &lt;chr&gt; &quot;Attempts to collect debt not owed&quot;, &quot;Inc…
+## $ sub_issue                    &lt;chr&gt; &quot;Debt is not yours&quot;, &quot;Information belongs…
+## $ consumer_complaint_narrative &lt;chr&gt; &quot;transworld systems inc. \nis trying to c…
+## $ company_public_response      &lt;chr&gt; NA, &quot;Company has responded to the consume…
+## $ company                      &lt;chr&gt; &quot;TRANSWORLD SYSTEMS INC&quot;, &quot;TRANSUNION INT…
+## $ state                        &lt;chr&gt; &quot;FL&quot;, &quot;CA&quot;, &quot;NC&quot;, &quot;RI&quot;, &quot;FL&quot;, &quot;TX&quot;, &quot;SC&quot;,…
+## $ zip_code                     &lt;chr&gt; &quot;335XX&quot;, &quot;937XX&quot;, &quot;275XX&quot;, &quot;029XX&quot;, &quot;333X…
+## $ tags                         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ consumer_consent_provided    &lt;chr&gt; &quot;Consent provided&quot;, &quot;Consent provided&quot;, &quot;…
+## $ submitted_via                &lt;chr&gt; &quot;Web&quot;, &quot;Web&quot;, &quot;Web&quot;, &quot;Web&quot;, &quot;Web&quot;, &quot;Web&quot;,…
+## $ date_sent_to_company         &lt;date&gt; 2019-09-24, 2019-10-25, 2019-11-08, 2019…
+## $ company_response_to_consumer &lt;chr&gt; &quot;Closed with explanation&quot;, &quot;Closed with e…
+## $ timely_response              &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;,…
+## $ consumer_disputed            &lt;chr&gt; &quot;N/A&quot;, &quot;N/A&quot;, &quot;N/A&quot;, &quot;N/A&quot;, &quot;N/A&quot;, &quot;N/A&quot;,…
+## $ complaint_id                 &lt;dbl&gt; 3384392, 3417821, 3433198, 3366475, 33853…</code></pre>
+<p>提取美元金額</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="機器學習消費者投訴分類系統-1.html#cb5-1" tabindex="-1"></a>complaints<span class="sc">$</span>consumer_complaint_narrative <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="機器學習消費者投訴分類系統-1.html#cb5-2" tabindex="-1"></a>  <span class="fu">str_extract_all</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">{</span><span class="sc">\\</span><span class="st">$[0-9</span><span class="sc">\\</span><span class="st">.]*</span><span class="sc">\\</span><span class="st">}&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="機器學習消費者投訴分類系統-1.html#cb5-3" tabindex="-1"></a>  <span class="fu">compact</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="機器學習消費者投訴分類系統-1.html#cb5-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;{$21.00}&quot; &quot;{$1.00}&quot; 
+## 
+## [[2]]
+## [1] &quot;{$2300.00}&quot;
+## 
+## [[3]]
+## [1] &quot;{$200.00}&quot;  &quot;{$5000.00}&quot; &quot;{$5000.00}&quot; &quot;{$770.00}&quot;  &quot;{$800.00}&quot; 
+## [6] &quot;{$5000.00}&quot;
+## 
+## [[4]]
+## [1] &quot;{$15000.00}&quot; &quot;{$11000.00}&quot; &quot;{$420.00}&quot;   &quot;{$15000.00}&quot;
+## 
+## [[5]]
+## [1] &quot;{$0.00}&quot; &quot;{$0.00}&quot; &quot;{$0.00}&quot; &quot;{$0.00}&quot;
+## 
+## [[6]]
+## [1] &quot;{$650.00}&quot;</code></pre>
+<p>二元分類：將產品分類轉化為二元類別（“Credit” 和 “Other”），便於分類建模。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="機器學習消費者投訴分類系統-1.html#cb7-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb7-2"><a href="機器學習消費者投訴分類系統-1.html#cb7-2" tabindex="-1"></a>complaints2class <span class="ot">&lt;-</span> complaints <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="機器學習消費者投訴分類系統-1.html#cb7-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">product =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(</span>
+<span id="cb7-4"><a href="機器學習消費者投訴分類系統-1.html#cb7-4" tabindex="-1"></a>    product <span class="sc">==</span> <span class="fu">paste</span>(<span class="st">&quot;Credit reporting, credit repair services,&quot;</span>,</span>
+<span id="cb7-5"><a href="機器學習消費者投訴分類系統-1.html#cb7-5" tabindex="-1"></a>                     <span class="st">&quot;or other personal consumer reports&quot;</span>),</span>
+<span id="cb7-6"><a href="機器學習消費者投訴分類系統-1.html#cb7-6" tabindex="-1"></a>    <span class="st">&quot;Credit&quot;</span>, <span class="st">&quot;Other&quot;</span>))</span>
+<span id="cb7-7"><a href="機器學習消費者投訴分類系統-1.html#cb7-7" tabindex="-1"></a>  ) </span></code></pre></div>
+<p>每 30 行選取一行，減少數據量，同時分割數據</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="機器學習消費者投訴分類系統-1.html#cb8-1" tabindex="-1"></a>dat<span class="ot">=</span> <span class="fu">filter</span>(complaints2class,<span class="fu">row_number</span>() <span class="sc">%%</span> <span class="dv">30</span> <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="機器學習消費者投訴分類系統-1.html#cb8-2" tabindex="-1"></a>dat<span class="ot">=</span>dat[,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)]</span>
+<span id="cb8-3"><a href="機器學習消費者投訴分類系統-1.html#cb8-3" tabindex="-1"></a>dat_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(dat, <span class="at">strata =</span> product)</span>
+<span id="cb8-4"><a href="機器學習消費者投訴分類系統-1.html#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="機器學習消費者投訴分類系統-1.html#cb8-5" tabindex="-1"></a>dat_train <span class="ot">&lt;-</span> <span class="fu">training</span>(dat_split)</span>
+<span id="cb8-6"><a href="機器學習消費者投訴分類系統-1.html#cb8-6" tabindex="-1"></a>dat_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(dat_split)</span>
+<span id="cb8-7"><a href="機器學習消費者投訴分類系統-1.html#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="機器學習消費者投訴分類系統-1.html#cb8-8" tabindex="-1"></a><span class="fu">dim</span>(dat_train)</span></code></pre></div>
+<pre><code>## [1] 2930    2</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="機器學習消費者投訴分類系統-1.html#cb10-1" tabindex="-1"></a><span class="fu">dim</span>(dat_test)</span></code></pre></div>
+<pre><code>## [1] 978   2</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="機器學習消費者投訴分類系統-1.html#cb12-1" tabindex="-1"></a><span class="fu">table</span>(dat_train<span class="sc">$</span>product)</span></code></pre></div>
+<pre><code>## 
+## Credit  Other 
+##   1366   1564</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="機器學習消費者投訴分類系統-1.html#cb14-1" tabindex="-1"></a><span class="fu">table</span>(dat_test<span class="sc">$</span>product)</span></code></pre></div>
+<pre><code>## 
+## Credit  Other 
+##    456    522</code></pre>
+</div>
+<div id="step-2.-specifying-step-elements-for-recipe" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Step 2. Specifying step elements for Recipe<a href="機器學習消費者投訴分類系統-1.html#step-2.-specifying-step-elements-for-recipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>將 consumer_complaint_narrative（消費者投訴的文本描述）轉換為數值化的特徵，供模型（例如朴素貝葉斯、SVM 等）訓練使用。</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="機器學習消費者投訴分類系統-1.html#cb16-1" tabindex="-1"></a>dat_rec <span class="ot">&lt;-</span></span>
+<span id="cb16-2"><a href="機器學習消費者投訴分類系統-1.html#cb16-2" tabindex="-1"></a>  <span class="fu">recipe</span>(product <span class="sc">~</span> consumer_complaint_narrative, </span>
+<span id="cb16-3"><a href="機器學習消費者投訴分類系統-1.html#cb16-3" tabindex="-1"></a>         <span class="at">data =</span> dat_train) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="機器學習消費者投訴分類系統-1.html#cb16-4" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(consumer_complaint_narrative) <span class="sc">|&gt;</span> <span class="co"># 分詞</span></span>
+<span id="cb16-5"><a href="機器學習消費者投訴分類系統-1.html#cb16-5" tabindex="-1"></a>  <span class="fu">step_stopwords</span>(consumer_complaint_narrative, <span class="co"># 移除停用詞</span></span>
+<span id="cb16-6"><a href="機器學習消費者投訴分類系統-1.html#cb16-6" tabindex="-1"></a>                 <span class="at">stopword_source =</span> <span class="st">&quot;snowball&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-7"><a href="機器學習消費者投訴分類系統-1.html#cb16-7" tabindex="-1"></a>  <span class="co"># &quot;snowball&quot;,&quot;smart&quot;,&quot;stopwords-iso&quot;</span></span>
+<span id="cb16-8"><a href="機器學習消費者投訴分類系統-1.html#cb16-8" tabindex="-1"></a>  <span class="fu">step_tokenfilter</span>(consumer_complaint_narrative, <span class="at">max_tokens =</span> <span class="fl">1e3</span>) <span class="sc">|&gt;</span> <span class="co"># 篩選 Token</span></span>
+<span id="cb16-9"><a href="機器學習消費者投訴分類系統-1.html#cb16-9" tabindex="-1"></a>  <span class="fu">step_tfidf</span>(consumer_complaint_narrative) <span class="co"># TF-IDF 轉換</span></span></code></pre></div>
+</div>
+<div id="step-3.-build-a-workflow-for-machine-learning" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Step 3. Build a workflow for Machine Learning<a href="機器學習消費者投訴分類系統-1.html#step-3.-build-a-workflow-for-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>使用Workflow（工作流）整合，將數據預處理（Recipe）與模型訓練串聯。</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="機器學習消費者投訴分類系統-1.html#cb17-1" tabindex="-1"></a>myWorkFlow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="機器學習消費者投訴分類系統-1.html#cb17-2" tabindex="-1"></a>  <span class="fu">add_recipe</span>(dat_rec)</span></code></pre></div>
+</div>
+<div id="step-4.-k-fold-cross-validation" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Step 4. K-Fold Cross-Validation<a href="機器學習消費者投訴分類系統-1.html#step-4.-k-fold-cross-validation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>使用交叉驗證評估模型性能</p>
+<p>（K-Fold Cross-Validation）：</p>
+<ol style="list-style-type: decimal">
+<li>將數據分為 K 等分（folds）。</li>
+<li>每次訓練時使用 K-1 個部分的數據，剩下的一部分用於測試。</li>
+<li>重複 K 次，確保每個部分都被用作一次測試集。</li>
+<li>最後計算 K 次的平均性能作為模型的表現指標。</li>
+</ol>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="機器學習消費者投訴分類系統-1.html#cb18-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb18-2"><a href="機器學習消費者投訴分類系統-1.html#cb18-2" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="機器學習消費者投訴分類系統-1.html#cb18-3" tabindex="-1"></a>Kfolds_CV <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(dat_train,<span class="at">v=</span><span class="dv">10</span>,<span class="at">repeats =</span> <span class="dv">1</span>)</span>
+<span id="cb18-4"><a href="機器學習消費者投訴分類系統-1.html#cb18-4" tabindex="-1"></a>Kfolds_CV</span></code></pre></div>
+<pre><code>## #  10-fold cross-validation 
+## # A tibble: 10 × 2
+##    splits             id    
+##    &lt;list&gt;             &lt;chr&gt; 
+##  1 &lt;split [2637/293]&gt; Fold01
+##  2 &lt;split [2637/293]&gt; Fold02
+##  3 &lt;split [2637/293]&gt; Fold03
+##  4 &lt;split [2637/293]&gt; Fold04
+##  5 &lt;split [2637/293]&gt; Fold05
+##  6 &lt;split [2637/293]&gt; Fold06
+##  7 &lt;split [2637/293]&gt; Fold07
+##  8 &lt;split [2637/293]&gt; Fold08
+##  9 &lt;split [2637/293]&gt; Fold09
+## 10 &lt;split [2637/293]&gt; Fold10</code></pre>
+</div>
+<div id="step-5.-models-selection" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Step 5. Models Selection<a href="機器學習消費者投訴分類系統-1.html#step-5.-models-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="model-1.-naive-bayes" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Model 1. Naive Bayes<a href="機器學習消費者投訴分類系統-1.html#model-1.-naive-bayes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="機器學習消費者投訴分類系統-1.html#cb20-1" tabindex="-1"></a><span class="co"># 定義 Naive Bayes 模型</span></span>
+<span id="cb20-2"><a href="機器學習消費者投訴分類系統-1.html#cb20-2" tabindex="-1"></a><span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
+<span id="cb20-3"><a href="機器學習消費者投訴分類系統-1.html#cb20-3" tabindex="-1"></a>  <span class="fu">library</span>(discrim)</span>
+<span id="cb20-4"><a href="機器學習消費者投訴分類系統-1.html#cb20-4" tabindex="-1"></a>  nb_spec <span class="ot">&lt;-</span> <span class="fu">naive_Bayes</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-5"><a href="機器學習消費者投訴分類系統-1.html#cb20-5" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="sc">|&gt;</span> <span class="co">#模型用於分類</span></span>
+<span id="cb20-6"><a href="機器學習消費者投訴分類系統-1.html#cb20-6" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;naivebayes&quot;</span>)</span>
+<span id="cb20-7"><a href="機器學習消費者投訴分類系統-1.html#cb20-7" tabindex="-1"></a>  </span>
+<span id="cb20-8"><a href="機器學習消費者投訴分類系統-1.html#cb20-8" tabindex="-1"></a>  nb_spec</span>
+<span id="cb20-9"><a href="機器學習消費者投訴分類系統-1.html#cb20-9" tabindex="-1"></a>  </span>
+<span id="cb20-10"><a href="機器學習消費者投訴分類系統-1.html#cb20-10" tabindex="-1"></a>  nb_fit <span class="ot">&lt;-</span> myWorkFlow <span class="sc">|&gt;</span></span>
+<span id="cb20-11"><a href="機器學習消費者投訴分類系統-1.html#cb20-11" tabindex="-1"></a>    <span class="fu">add_model</span>(nb_spec) <span class="sc">|&gt;</span> <span class="co">#</span></span>
+<span id="cb20-12"><a href="機器學習消費者投訴分類系統-1.html#cb20-12" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="at">data =</span> dat_train)</span>
+<span id="cb20-13"><a href="機器學習消費者投訴分類系統-1.html#cb20-13" tabindex="-1"></a>}</span>
+<span id="cb20-14"><a href="機器學習消費者投訴分類系統-1.html#cb20-14" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="機器學習消費者投訴分類系統-1.html#cb20-15" tabindex="-1"></a>nb_spec <span class="ot">&lt;-</span> <span class="fu">naive_Bayes</span>() <span class="sc">|&gt;</span></span>
+<span id="cb20-16"><a href="機器學習消費者投訴分類系統-1.html#cb20-16" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-17"><a href="機器學習消費者投訴分類系統-1.html#cb20-17" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;naivebayes&quot;</span>)</span>
+<span id="cb20-18"><a href="機器學習消費者投訴分類系統-1.html#cb20-18" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="機器學習消費者投訴分類系統-1.html#cb20-19" tabindex="-1"></a>nb_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> <span class="co">#構建工作流</span></span>
+<span id="cb20-20"><a href="機器學習消費者投訴分類系統-1.html#cb20-20" tabindex="-1"></a>  <span class="fu">add_recipe</span>(dat_rec) <span class="sc">|&gt;</span> <span class="co">#加入前面定義的文本預處理步驟（如分詞、TF-IDF）</span></span>
+<span id="cb20-21"><a href="機器學習消費者投訴分類系統-1.html#cb20-21" tabindex="-1"></a>  <span class="fu">add_model</span>(nb_spec) <span class="co"># 加入 Naive Bayes 模型</span></span>
+<span id="cb20-22"><a href="機器學習消費者投訴分類系統-1.html#cb20-22" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="機器學習消費者投訴分類系統-1.html#cb20-23" tabindex="-1"></a>nb_wf</span></code></pre></div>
+<pre><code>## ══ Workflow ════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: naive_Bayes()
+## 
+## ── Preprocessor ────────────────────────────────────────────────────────────────
+## 4 Recipe Steps
+## 
+## • step_tokenize()
+## • step_stopwords()
+## • step_tokenfilter()
+## • step_tfidf()
+## 
+## ── Model ───────────────────────────────────────────────────────────────────────
+## Naive Bayes Model Specification (classification)
+## 
+## Computational engine: naivebayes</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="機器學習消費者投訴分類系統-1.html#cb22-1" tabindex="-1"></a><span class="co"># 使用交叉驗證訓練模型</span></span>
+<span id="cb22-2"><a href="機器學習消費者投訴分類系統-1.html#cb22-2" tabindex="-1"></a>nb_rs <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(</span>
+<span id="cb22-3"><a href="機器學習消費者投訴分類系統-1.html#cb22-3" tabindex="-1"></a>  nb_wf,</span>
+<span id="cb22-4"><a href="機器學習消費者投訴分類系統-1.html#cb22-4" tabindex="-1"></a>  <span class="at">resample=</span>Kfolds_CV,</span>
+<span id="cb22-5"><a href="機器學習消費者投訴分類系統-1.html#cb22-5" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-6"><a href="機器學習消費者投訴分類系統-1.html#cb22-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="機器學習消費者投訴分類系統-1.html#cb23-1" tabindex="-1"></a><span class="fu">collect_metrics</span>(nb_rs) <span class="co"># 收集指標</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 6
+##   .metric     .estimator  mean     n std_err .config             
+##   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy    binary     0.686    10 0.0106  Preprocessor1_Model1
+## 2 brier_class binary     0.311    10 0.0105  Preprocessor1_Model1
+## 3 roc_auc     binary     0.772    10 0.00817 Preprocessor1_Model1</code></pre>
+<ul>
+<li><p>accuracy（準確率）：
+平均值：0.660（66%）。
+表示模型在交叉驗證中，正確分類樣本的比例。
+這表明 Naive Bayes 模型的準確率是中等水平，可能還有改進空間。</p></li>
+<li><p>brier_class（Brier 分數）：
+平均值：0.337。
+測量模型預測的概率質量，值越小越好。
+對於二元分類，0.337 表示模型的預測概率還算穩定，但還可以優化。</p></li>
+<li><p>roc_auc（ROC 曲線下面積）：
+平均值：0.763（76.3%）。
+表示模型區分正類（Credit）和負類（Other）的能力，值越接近 1 越好。模型對正負類別的區分能力優於隨機猜測（0.5）。</p></li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="機器學習消費者投訴分類系統-1.html#cb25-1" tabindex="-1"></a><span class="fu">collect_predictions</span>(nb_rs) <span class="co"># 收集預測</span></span></code></pre></div>
+<pre><code>## # A tibble: 2,930 × 7
+##    .pred_class .pred_Credit .pred_Other id      .row product .config            
+##    &lt;fct&gt;              &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt; &lt;fct&gt;   &lt;chr&gt;              
+##  1 Credit          1.00e+ 0    1.05e-14 Fold01    16 Credit  Preprocessor1_Mode…
+##  2 Credit          1.00e+ 0    4.42e- 6 Fold01    31 Credit  Preprocessor1_Mode…
+##  3 Credit          1   e+ 0    6.23e-72 Fold01    33 Credit  Preprocessor1_Mode…
+##  4 Credit          1   e+ 0    3.94e-39 Fold01    41 Credit  Preprocessor1_Mode…
+##  5 Credit          1   e+ 0    2.60e-35 Fold01    42 Credit  Preprocessor1_Mode…
+##  6 Credit          1   e+ 0    2.32e-17 Fold01    47 Credit  Preprocessor1_Mode…
+##  7 Other           2.73e-16    1   e+ 0 Fold01    51 Credit  Preprocessor1_Mode…
+##  8 Credit          1   e+ 0    4.22e-52 Fold01    56 Credit  Preprocessor1_Mode…
+##  9 Credit          1   e+ 0    1.63e-29 Fold01    58 Credit  Preprocessor1_Mode…
+## 10 Credit          1.00e+ 0    3.35e-15 Fold01    74 Credit  Preprocessor1_Mode…
+## # ℹ 2,920 more rows</code></pre>
+<p>混淆矩陣</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">.metric</th>
+<th align="left">.estimator</th>
+<th align="right">.estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">accuracy</td>
+<td align="left">binary</td>
+<td align="right">0.6860068</td>
+</tr>
+<tr class="even">
+<td align="left">kap</td>
+<td align="left">binary</td>
+<td align="right">0.3893372</td>
+</tr>
+<tr class="odd">
+<td align="left">f_meas</td>
+<td align="left">binary</td>
+<td align="right">0.7330238</td>
+</tr>
+<tr class="even">
+<td align="left">npv</td>
+<td align="left">binary</td>
+<td align="right">0.8788235</td>
+</tr>
+<tr class="odd">
+<td align="left">ppv</td>
+<td align="left">binary</td>
+<td align="right">0.6072115</td>
+</tr>
+<tr class="even">
+<td align="left">precision</td>
+<td align="left">binary</td>
+<td align="right">0.6072115</td>
+</tr>
+<tr class="odd">
+<td align="left">recall</td>
+<td align="left">binary</td>
+<td align="right">0.9245974</td>
+</tr>
+<tr class="even">
+<td align="left">sens</td>
+<td align="left">binary</td>
+<td align="right">0.9245974</td>
+</tr>
+<tr class="odd">
+<td align="left">spec</td>
+<td align="left">binary</td>
+<td align="right">0.4776215</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(總體觀察\)</span></p>
+<ul>
+<li>模型偏好檢測正類（Credit）：高召回率（0.925）和低特異性（0.478）表明模型更傾向於將樣本歸類為正類，導致假陽性較多。</li>
+<li>負類預測相對穩定：陰性預測值（0.879）較高，說明模型對負類（Other）的預測相對穩定。</li>
+<li>平衡性能表現：F1 分數（0.733）表明模型在精確率和召回率之間有一定的平衡，但提升精確率可以進一步改進模型性能。</li>
+</ul>
+<p><span class="math inline">\(視覺化\)</span></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="機器學習消費者投訴分類系統-1.html#cb27-1" tabindex="-1"></a><span class="fu">collect_predictions</span>(nb_rs) <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="機器學習消費者投訴分類系統-1.html#cb27-2" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="機器學習消費者投訴分類系統-1.html#cb27-3" tabindex="-1"></a>  <span class="fu">roc_curve</span>(<span class="at">truth =</span> product, .pred_Credit) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="機器學習消費者投訴分類系統-1.html#cb27-4" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span></span>
+<span id="cb27-5"><a href="機器學習消費者投訴分類系統-1.html#cb27-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-6"><a href="機器學習消費者投訴分類系統-1.html#cb27-6" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span>,</span>
+<span id="cb27-7"><a href="機器學習消費者投訴分類系統-1.html#cb27-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;ROC curve for US Consumer Finance Complaints&quot;</span>,</span>
+<span id="cb27-8"><a href="機器學習消費者投訴分類系統-1.html#cb27-8" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Each resample fold is shown in a different color&quot;</span></span>
+<span id="cb27-9"><a href="機器學習消費者投訴分類系統-1.html#cb27-9" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="機器學習消費者投訴分類系統-1.html#cb28-1" tabindex="-1"></a><span class="fu">conf_mat_resampled</span>(nb_rs, <span class="at">tidy =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="機器學習消費者投訴分類系統-1.html#cb28-2" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">&quot;heatmap&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+</div>
+<div id="model-2.-the-null-model-baseline" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Model 2. The null model (baseline)<a href="機器學習消費者投訴分類系統-1.html#model-2.-the-null-model-baseline" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="機器學習消費者投訴分類系統-1.html#cb29-1" tabindex="-1"></a>null_classification <span class="ot">&lt;-</span> <span class="fu">null_model</span>() <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="機器學習消費者投訴分類系統-1.html#cb29-2" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;parsnip&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="機器學習消費者投訴分類系統-1.html#cb29-3" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
+<span id="cb29-4"><a href="機器學習消費者投訴分類系統-1.html#cb29-4" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="機器學習消費者投訴分類系統-1.html#cb29-5" tabindex="-1"></a>null_rs <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb29-6"><a href="機器學習消費者投訴分類系統-1.html#cb29-6" tabindex="-1"></a>  <span class="fu">add_recipe</span>(dat_rec) <span class="sc">|&gt;</span></span>
+<span id="cb29-7"><a href="機器學習消費者投訴分類系統-1.html#cb29-7" tabindex="-1"></a>  <span class="fu">add_model</span>(null_classification) <span class="sc">|&gt;</span></span>
+<span id="cb29-8"><a href="機器學習消費者投訴分類系統-1.html#cb29-8" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(</span>
+<span id="cb29-9"><a href="機器學習消費者投訴分類系統-1.html#cb29-9" tabindex="-1"></a>    <span class="at">resample=</span>Kfolds_CV,</span>
+<span id="cb29-10"><a href="機器學習消費者投訴分類系統-1.html#cb29-10" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-11"><a href="機器學習消費者投訴分類系統-1.html#cb29-11" tabindex="-1"></a>  )</span>
+<span id="cb29-12"><a href="機器學習消費者投訴分類系統-1.html#cb29-12" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="機器學習消費者投訴分類系統-1.html#cb29-13" tabindex="-1"></a><span class="fu">collect_metrics</span>(null_rs)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 6
+##   .metric     .estimator  mean     n  std_err .config             
+##   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy    binary     0.534    10 0.00859  Preprocessor1_Model1
+## 2 brier_class binary     0.249    10 0.000563 Preprocessor1_Model1
+## 3 roc_auc     binary     0.5      10 0        Preprocessor1_Model1</code></pre>
+<ul>
+<li>準確率為 53.4%，說明在無任何模型學習的情況下，僅猜測數量最多的類別即可達到此準確率。</li>
+<li>Brier 分數為 0.249，僅僅基於類別比例猜測，誤差相對較大，優化空間大。</li>
+<li>ROC AUC 僅為 0.5，表示基準模型沒有任何區分正負類別的能力。</li>
+</ul>
+</div>
+<div id="model-3.-lasso" class="section level3 hasAnchor" number="4.5.3">
+<h3><span class="header-section-number">4.5.3</span> Model 3. LASSO<a href="機器學習消費者投訴分類系統-1.html#model-3.-lasso" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="機器學習消費者投訴分類系統-1.html#cb31-1" tabindex="-1"></a><span class="do">## Using regularization helps us choose a simpler model that we expect </span></span>
+<span id="cb31-2"><a href="機器學習消費者投訴分類系統-1.html#cb31-2" tabindex="-1"></a><span class="do">## to generalize better to new observations, and variable selection</span></span>
+<span id="cb31-3"><a href="機器學習消費者投訴分類系統-1.html#cb31-3" tabindex="-1"></a><span class="do">## helps us identify which features to include in our model.</span></span>
+<span id="cb31-4"><a href="機器學習消費者投訴分類系統-1.html#cb31-4" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="機器學習消費者投訴分類系統-1.html#cb31-5" tabindex="-1"></a>lasso_spec <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>(<span class="at">penalty =</span> <span class="fl">0.01</span>, <span class="at">mixture =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-6"><a href="機器學習消費者投訴分類系統-1.html#cb31-6" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-7"><a href="機器學習消費者投訴分類系統-1.html#cb31-7" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;glmnet&quot;</span>)</span>
+<span id="cb31-8"><a href="機器學習消費者投訴分類系統-1.html#cb31-8" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="機器學習消費者投訴分類系統-1.html#cb31-9" tabindex="-1"></a>lasso_spec</span></code></pre></div>
+<pre><code>## Logistic Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = 0.01
+##   mixture = 1
+## 
+## Computational engine: glmnet</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="機器學習消費者投訴分類系統-1.html#cb33-1" tabindex="-1"></a>lasso_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="機器學習消費者投訴分類系統-1.html#cb33-2" tabindex="-1"></a>  <span class="fu">add_recipe</span>(dat_rec) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="機器學習消費者投訴分類系統-1.html#cb33-3" tabindex="-1"></a>  <span class="fu">add_model</span>(lasso_spec)</span>
+<span id="cb33-4"><a href="機器學習消費者投訴分類系統-1.html#cb33-4" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="機器學習消費者投訴分類系統-1.html#cb33-5" tabindex="-1"></a>lasso_wf</span></code></pre></div>
+<pre><code>## ══ Workflow ════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: logistic_reg()
+## 
+## ── Preprocessor ────────────────────────────────────────────────────────────────
+## 4 Recipe Steps
+## 
+## • step_tokenize()
+## • step_stopwords()
+## • step_tokenfilter()
+## • step_tfidf()
+## 
+## ── Model ───────────────────────────────────────────────────────────────────────
+## Logistic Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = 0.01
+##   mixture = 1
+## 
+## Computational engine: glmnet</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="機器學習消費者投訴分類系統-1.html#cb35-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb35-2"><a href="機器學習消費者投訴分類系統-1.html#cb35-2" tabindex="-1"></a>lasso_rs <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(</span>
+<span id="cb35-3"><a href="機器學習消費者投訴分類系統-1.html#cb35-3" tabindex="-1"></a>  lasso_wf,</span>
+<span id="cb35-4"><a href="機器學習消費者投訴分類系統-1.html#cb35-4" tabindex="-1"></a>  <span class="at">resample=</span>Kfolds_CV,</span>
+<span id="cb35-5"><a href="機器學習消費者投訴分類系統-1.html#cb35-5" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-6"><a href="機器學習消費者投訴分類系統-1.html#cb35-6" tabindex="-1"></a>)</span>
+<span id="cb35-7"><a href="機器學習消費者投訴分類系統-1.html#cb35-7" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="機器學習消費者投訴分類系統-1.html#cb35-8" tabindex="-1"></a>lasso_rs_metrics <span class="ot">&lt;-</span> <span class="fu">collect_metrics</span>(lasso_rs)</span>
+<span id="cb35-9"><a href="機器學習消費者投訴分類系統-1.html#cb35-9" tabindex="-1"></a>lasso_rs_predictions <span class="ot">&lt;-</span> <span class="fu">collect_predictions</span>(lasso_rs)</span>
+<span id="cb35-10"><a href="機器學習消費者投訴分類系統-1.html#cb35-10" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="機器學習消費者投訴分類系統-1.html#cb35-11" tabindex="-1"></a>lasso_rs_metrics</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 6
+##   .metric     .estimator  mean     n std_err .config             
+##   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy    binary     0.854    10 0.00656 Preprocessor1_Model1
+## 2 brier_class binary     0.107    10 0.00346 Preprocessor1_Model1
+## 3 roc_auc     binary     0.927    10 0.00493 Preprocessor1_Model1</code></pre>
+<ul>
+<li><p>準確率（Accuracy）：模型準確率達到 85.4%，相比基準模型的 53.4% 提升明顯。LASSO 模型能有效利用數據中的特徵進行分類。</p></li>
+<li><p>Brier 分數（Brier Class）：0.107 ，表示模型預測的結果與真實標籤的差距很小。</p></li>
+<li><p>ROC AUC：0.927，模型對正負類別的區分能力非常好。</p></li>
+</ul>
+<p>視覺化結果</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="機器學習消費者投訴分類系統-1.html#cb37-1" tabindex="-1"></a>lasso_rs_predictions <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="機器學習消費者投訴分類系統-1.html#cb37-2" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="機器學習消費者投訴分類系統-1.html#cb37-3" tabindex="-1"></a>  <span class="fu">roc_curve</span>(<span class="at">truth =</span> product, .pred_Credit) <span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a href="機器學習消費者投訴分類系統-1.html#cb37-4" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span></span>
+<span id="cb37-5"><a href="機器學習消費者投訴分類系統-1.html#cb37-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb37-6"><a href="機器學習消費者投訴分類系統-1.html#cb37-6" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span>,</span>
+<span id="cb37-7"><a href="機器學習消費者投訴分類系統-1.html#cb37-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;ROC curve for US Consumer Finance Complaints&quot;</span>,</span>
+<span id="cb37-8"><a href="機器學習消費者投訴分類系統-1.html#cb37-8" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Each resample fold is shown in a different color&quot;</span></span>
+<span id="cb37-9"><a href="機器學習消費者投訴分類系統-1.html#cb37-9" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="機器學習消費者投訴分類系統-1.html#cb38-1" tabindex="-1"></a><span class="fu">conf_mat_resampled</span>(lasso_rs, <span class="at">tidy =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="機器學習消費者投訴分類系統-1.html#cb38-2" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">&quot;heatmap&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p><span class="math inline">\(Tuning\)</span></p>
+<p>LASSO 模型有一個控制「特徵篩選強度」的開關，叫 penalty（懲罰值）。
+這個懲罰值決定模型要 多狠心 地「扔掉」不重要的特徵（例如多餘的詞語）。
+調參的目的是 找到最適合的懲罰值，既能讓模型 準確率高，又不會過於複雜。</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="機器學習消費者投訴分類系統-1.html#cb39-1" tabindex="-1"></a>tune_lasso_spec <span class="ot">&lt;-</span> </span>
+<span id="cb39-2"><a href="機器學習消費者投訴分類系統-1.html#cb39-2" tabindex="-1"></a>  <span class="fu">logistic_reg</span>(<span class="at">penalty =</span> <span class="fu">tune</span>(), <span class="at">mixture =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="機器學習消費者投訴分類系統-1.html#cb39-3" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-4"><a href="機器學習消費者投訴分類系統-1.html#cb39-4" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;glmnet&quot;</span>)</span>
+<span id="cb39-5"><a href="機器學習消費者投訴分類系統-1.html#cb39-5" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="機器學習消費者投訴分類系統-1.html#cb39-6" tabindex="-1"></a>tune_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-7"><a href="機器學習消費者投訴分類系統-1.html#cb39-7" tabindex="-1"></a>  <span class="fu">add_recipe</span>(dat_rec) <span class="sc">|&gt;</span></span>
+<span id="cb39-8"><a href="機器學習消費者投訴分類系統-1.html#cb39-8" tabindex="-1"></a>  <span class="fu">add_model</span>(tune_lasso_spec)</span>
+<span id="cb39-9"><a href="機器學習消費者投訴分類系統-1.html#cb39-9" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="機器學習消費者投訴分類系統-1.html#cb39-10" tabindex="-1"></a>tune_rs <span class="ot">&lt;-</span> <span class="fu">tune_grid</span>(</span>
+<span id="cb39-11"><a href="機器學習消費者投訴分類系統-1.html#cb39-11" tabindex="-1"></a>  tune_wf,</span>
+<span id="cb39-12"><a href="機器學習消費者投訴分類系統-1.html#cb39-12" tabindex="-1"></a>  <span class="at">resample=</span>Kfolds_CV,</span>
+<span id="cb39-13"><a href="機器學習消費者投訴分類系統-1.html#cb39-13" tabindex="-1"></a>  <span class="at">grid =</span> <span class="fu">grid_regular</span>(<span class="fu">penalty</span>(), <span class="at">levels =</span> <span class="dv">30</span>), </span>
+<span id="cb39-14"><a href="機器學習消費者投訴分類系統-1.html#cb39-14" tabindex="-1"></a>  <span class="co">#定義 penalty 的搜索空間，從小到大生成 30 個均勻分布的值。</span></span>
+<span id="cb39-15"><a href="機器學習消費者投訴分類系統-1.html#cb39-15" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb39-16"><a href="機器學習消費者投訴分類系統-1.html#cb39-16" tabindex="-1"></a>)</span>
+<span id="cb39-17"><a href="機器學習消費者投訴分類系統-1.html#cb39-17" tabindex="-1"></a></span>
+<span id="cb39-18"><a href="機器學習消費者投訴分類系統-1.html#cb39-18" tabindex="-1"></a>tune_rs</span></code></pre></div>
+<pre><code>## # Tuning results
+## # 10-fold cross-validation 
+## # A tibble: 10 × 5
+##    splits             id     .metrics          .notes           .predictions
+##    &lt;list&gt;             &lt;chr&gt;  &lt;list&gt;            &lt;list&gt;           &lt;list&gt;      
+##  1 &lt;split [2637/293]&gt; Fold01 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+##  2 &lt;split [2637/293]&gt; Fold02 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+##  3 &lt;split [2637/293]&gt; Fold03 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+##  4 &lt;split [2637/293]&gt; Fold04 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+##  5 &lt;split [2637/293]&gt; Fold05 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+##  6 &lt;split [2637/293]&gt; Fold06 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+##  7 &lt;split [2637/293]&gt; Fold07 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+##  8 &lt;split [2637/293]&gt; Fold08 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+##  9 &lt;split [2637/293]&gt; Fold09 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    
+## 10 &lt;split [2637/293]&gt; Fold10 &lt;tibble [90 × 5]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="機器學習消費者投訴分類系統-1.html#cb41-1" tabindex="-1"></a><span class="fu">collect_metrics</span>(tune_rs)</span></code></pre></div>
+<pre><code>## # A tibble: 90 × 7
+##     penalty .metric     .estimator  mean     n std_err .config              
+##       &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+##  1 1   e-10 accuracy    binary     0.805    10 0.00713 Preprocessor1_Model01
+##  2 1   e-10 brier_class binary     0.182    10 0.00601 Preprocessor1_Model01
+##  3 1   e-10 roc_auc     binary     0.861    10 0.00589 Preprocessor1_Model01
+##  4 2.21e-10 accuracy    binary     0.805    10 0.00713 Preprocessor1_Model02
+##  5 2.21e-10 brier_class binary     0.182    10 0.00601 Preprocessor1_Model02
+##  6 2.21e-10 roc_auc     binary     0.861    10 0.00589 Preprocessor1_Model02
+##  7 4.89e-10 accuracy    binary     0.805    10 0.00713 Preprocessor1_Model03
+##  8 4.89e-10 brier_class binary     0.182    10 0.00601 Preprocessor1_Model03
+##  9 4.89e-10 roc_auc     binary     0.861    10 0.00589 Preprocessor1_Model03
+## 10 1.08e- 9 accuracy    binary     0.805    10 0.00713 Preprocessor1_Model04
+## # ℹ 80 more rows</code></pre>
+<p><span class="math inline">\(視覺化\)</span></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="機器學習消費者投訴分類系統-1.html#cb43-1" tabindex="-1"></a><span class="fu">autoplot</span>(tune_rs) <span class="sc">+</span></span>
+<span id="cb43-2"><a href="機器學習消費者投訴分類系統-1.html#cb43-2" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb43-3"><a href="機器學習消費者投訴分類系統-1.html#cb43-3" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Lasso model performance across regularization penalties&quot;</span>,</span>
+<span id="cb43-4"><a href="機器學習消費者投訴分類系統-1.html#cb43-4" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Performance metrics can be used to identity the best penalty&quot;</span></span>
+<span id="cb43-5"><a href="機器學習消費者投訴分類系統-1.html#cb43-5" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="機器學習消費者投訴分類系統-1.html#cb44-1" tabindex="-1"></a><span class="fu">show_best</span>(tune_rs, <span class="at">metric=</span><span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 7
+##   penalty .metric .estimator  mean     n std_err .config              
+##     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+## 1 0.00853 roc_auc binary     0.927    10 0.00498 Preprocessor1_Model24
+## 2 0.0189  roc_auc binary     0.924    10 0.00532 Preprocessor1_Model25
+## 3 0.00386 roc_auc binary     0.918    10 0.00551 Preprocessor1_Model23
+## 4 0.00174 roc_auc binary     0.904    10 0.00625 Preprocessor1_Model22
+## 5 0.0418  roc_auc binary     0.894    10 0.00582 Preprocessor1_Model26</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="機器學習消費者投訴分類系統-1.html#cb46-1" tabindex="-1"></a>tune_rs_auc <span class="ot">&lt;-</span> <span class="fu">show_best</span>(tune_rs, <span class="at">metric=</span><span class="st">&quot;roc_auc&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="機器學習消費者投訴分類系統-1.html#cb46-2" tabindex="-1"></a>  <span class="fu">pull</span>(mean) <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="機器學習消費者投訴分類系統-1.html#cb46-3" tabindex="-1"></a>  <span class="fu">max</span>() <span class="sc">|&gt;</span></span>
+<span id="cb46-4"><a href="機器學習消費者投訴分類系統-1.html#cb46-4" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb46-5"><a href="機器學習消費者投訴分類系統-1.html#cb46-5" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="機器學習消費者投訴分類系統-1.html#cb46-6" tabindex="-1"></a>chosen_auc <span class="ot">&lt;-</span> tune_rs <span class="sc">|&gt;</span></span>
+<span id="cb46-7"><a href="機器學習消費者投訴分類系統-1.html#cb46-7" tabindex="-1"></a>  <span class="fu">select_by_one_std_err</span>(<span class="at">metric =</span> <span class="st">&quot;roc_auc&quot;</span>, <span class="sc">-</span>penalty)</span>
+<span id="cb46-8"><a href="機器學習消費者投訴分類系統-1.html#cb46-8" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="機器學習消費者投訴分類系統-1.html#cb46-9" tabindex="-1"></a>chosen_auc</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   penalty .config              
+##     &lt;dbl&gt; &lt;chr&gt;                
+## 1  0.0189 Preprocessor1_Model25</code></pre>
+</div>
+<div id="choosing-the-best-model-out-of-tuned-lassos" class="section level3 hasAnchor" number="4.5.4">
+<h3><span class="header-section-number">4.5.4</span> Choosing the Best Model out-of tuned LASSOs<a href="機器學習消費者投訴分類系統-1.html#choosing-the-best-model-out-of-tuned-lassos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="機器學習消費者投訴分類系統-1.html#cb48-1" tabindex="-1"></a>final_lasso <span class="ot">&lt;-</span> <span class="fu">finalize_workflow</span>(tune_wf, chosen_auc)</span>
+<span id="cb48-2"><a href="機器學習消費者投訴分類系統-1.html#cb48-2" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="機器學習消費者投訴分類系統-1.html#cb48-3" tabindex="-1"></a>final_lasso</span></code></pre></div>
+<pre><code>## ══ Workflow ════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: logistic_reg()
+## 
+## ── Preprocessor ────────────────────────────────────────────────────────────────
+## 4 Recipe Steps
+## 
+## • step_tokenize()
+## • step_stopwords()
+## • step_tokenfilter()
+## • step_tfidf()
+## 
+## ── Model ───────────────────────────────────────────────────────────────────────
+## Logistic Regression Model Specification (classification)
+## 
+## Main Arguments:
+##   penalty = 0.018873918221351
+##   mixture = 1
+## 
+## Computational engine: glmnet</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="機器學習消費者投訴分類系統-1.html#cb50-1" tabindex="-1"></a>fitted_lasso <span class="ot">&lt;-</span> <span class="fu">fit</span>(final_lasso, dat_train)</span>
+<span id="cb50-2"><a href="機器學習消費者投訴分類系統-1.html#cb50-2" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="機器學習消費者投訴分類系統-1.html#cb50-3" tabindex="-1"></a>fitted_lasso <span class="sc">|&gt;</span></span>
+<span id="cb50-4"><a href="機器學習消費者投訴分類系統-1.html#cb50-4" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">|&gt;</span></span>
+<span id="cb50-5"><a href="機器學習消費者投訴分類系統-1.html#cb50-5" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb50-6"><a href="機器學習消費者投訴分類系統-1.html#cb50-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">str_remove</span>(term, <span class="st">&quot;tfidf_consumer_complaint_narrative_&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb50-7"><a href="機器學習消費者投訴分類系統-1.html#cb50-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>estimate)</span></code></pre></div>
+<pre><code>## # A tibble: 1,001 × 3
+##    term       estimate penalty
+##    &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+##  1 received       7.77  0.0189
+##  2 situation      6.45  0.0189
+##  3 money          6.37  0.0189
+##  4 debt           5.37  0.0189
+##  5 bank           4.65  0.0189
+##  6 funds          4.53  0.0189
+##  7 pay            4.47  0.0189
+##  8 statements     4.29  0.0189
+##  9 customer       4.27  0.0189
+## 10 interest       3.88  0.0189
+## # ℹ 991 more rows</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="機器學習消費者投訴分類系統-1.html#cb52-1" tabindex="-1"></a>fitted_lasso <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="機器學習消費者投訴分類系統-1.html#cb52-2" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">|&gt;</span></span>
+<span id="cb52-3"><a href="機器學習消費者投訴分類系統-1.html#cb52-3" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb52-4"><a href="機器學習消費者投訴分類系統-1.html#cb52-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">str_remove</span>(term, <span class="st">&quot;tfidf_consumer_complaint_narrative_&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb52-5"><a href="機器學習消費者投訴分類系統-1.html#cb52-5" tabindex="-1"></a>  <span class="fu">arrange</span>(estimate)</span></code></pre></div>
+<pre><code>## # A tibble: 1,001 × 3
+##    term        estimate penalty
+##    &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;
+##  1 requisite     -21.1   0.0189
+##  2 equifax       -11.7   0.0189
+##  3 reporting     -10.9   0.0189
+##  4 experian      -10.7   0.0189
+##  5 report        -10.2   0.0189
+##  6 credit         -9.69  0.0189
+##  7 reported       -5.45  0.0189
+##  8 fcra           -5.34  0.0189
+##  9 information    -5.31  0.0189
+## 10 transunion     -5.31  0.0189
+## # ℹ 991 more rows</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="文字探勘半導體永續報告書分析-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-ML.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"self_contained": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
