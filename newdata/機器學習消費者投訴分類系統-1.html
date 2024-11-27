@@ -546,10 +546,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-7"><a href="機器學習消費者投訴分類系統-1.html#cb27-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;ROC curve for US Consumer Finance Complaints&quot;</span>,</span>
 <span id="cb27-8"><a href="機器學習消費者投訴分類系統-1.html#cb27-8" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Each resample fold is shown in a different color&quot;</span></span>
 <span id="cb27-9"><a href="機器學習消費者投訴分類系統-1.html#cb27-9" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="/DS/newdata/main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="機器學習消費者投訴分類系統-1.html#cb28-1" tabindex="-1"></a><span class="fu">conf_mat_resampled</span>(nb_rs, <span class="at">tidy =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb28-2"><a href="機器學習消費者投訴分類系統-1.html#cb28-2" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">&quot;heatmap&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<p><img src="/DS/newdata/main_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
 </div>
 <div id="model-2.-the-null-model-baseline" class="section level3 hasAnchor" number="4.5.2">
 <h3><span class="header-section-number">4.5.2</span> Model 2. The null model (baseline)<a href="機器學習消費者投訴分類系統-1.html#model-2.-the-null-model-baseline" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -653,10 +653,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb37-7"><a href="機器學習消費者投訴分類系統-1.html#cb37-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;ROC curve for US Consumer Finance Complaints&quot;</span>,</span>
 <span id="cb37-8"><a href="機器學習消費者投訴分類系統-1.html#cb37-8" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Each resample fold is shown in a different color&quot;</span></span>
 <span id="cb37-9"><a href="機器學習消費者投訴分類系統-1.html#cb37-9" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="/DS/newdata/main_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="機器學習消費者投訴分類系統-1.html#cb38-1" tabindex="-1"></a><span class="fu">conf_mat_resampled</span>(lasso_rs, <span class="at">tidy =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb38-2"><a href="機器學習消費者投訴分類系統-1.html#cb38-2" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">&quot;heatmap&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p><img src="/DS/newdata/main_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
 <p><span class="math inline">\(Tuning\)</span></p>
 <p>LASSO 模型有一個控制「特徵篩選強度」的開關，叫 penalty（懲罰值）。
 這個懲罰值決定模型要 多狠心 地「扔掉」不重要的特徵（例如多餘的詞語）。
@@ -715,7 +715,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb43-3"><a href="機器學習消費者投訴分類系統-1.html#cb43-3" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Lasso model performance across regularization penalties&quot;</span>,</span>
 <span id="cb43-4"><a href="機器學習消費者投訴分類系統-1.html#cb43-4" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Performance metrics can be used to identity the best penalty&quot;</span></span>
 <span id="cb43-5"><a href="機器學習消費者投訴分類系統-1.html#cb43-5" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="/DS/newdata/main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="機器學習消費者投訴分類系統-1.html#cb44-1" tabindex="-1"></a><span class="fu">show_best</span>(tune_rs, <span class="at">metric=</span><span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 7
 ##   penalty .metric .estimator  mean     n std_err .config              
