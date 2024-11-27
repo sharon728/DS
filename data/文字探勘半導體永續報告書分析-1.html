@@ -1008,7 +1008,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-3"><a href="文字探勘半導體永續報告書分析-1.html#cb30-3" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span>  <span class="co"># 翻轉座標軸</span></span>
 <span id="cb30-4"><a href="文字探勘半導體永續報告書分析-1.html#cb30-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Top 20 TF-IDF Words&quot;</span>, <span class="at">x =</span> <span class="st">&quot;詞彙&quot;</span>, <span class="at">y =</span> <span class="st">&quot;TF-IDF 分數&quot;</span>) <span class="sc">+</span></span>
 <span id="cb30-5"><a href="文字探勘半導體永續報告書分析-1.html#cb30-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="/DS/data/main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="/DS/data/main_files/figure-html/unnamed-chunk-19-1.png" alt="描述" width="672" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="文字探勘半導體永續報告書分析-1.html#cb31-1" tabindex="-1"></a>plot_tfidf <span class="ot">&lt;-</span> <span class="cf">function</span>(ESG_tfidf, company_name, color) {</span>
 <span id="cb31-2"><a href="文字探勘半導體永續報告書分析-1.html#cb31-2" tabindex="-1"></a>  top_words <span class="ot">&lt;-</span> ESG_tfidf <span class="sc">%&gt;%</span></span>
 <span id="cb31-3"><a href="文字探勘半導體永續報告書分析-1.html#cb31-3" tabindex="-1"></a>    <span class="fu">filter</span>(company <span class="sc">==</span> company_name) <span class="sc">%&gt;%</span></span>
